@@ -14,7 +14,7 @@ if (document.selection.isempty) {
 } else {
     nFlags = eeFindNext | eeReplaceSelOnly | eeReplaceAll | eeFindReplaceRegExp;
 }
-menu.Add("排版脚本：中华太阳系联盟增强版", 100);
+menu.Add("排版脚本：自由与分享版", 100);
 menu.Add("", 0, eeMenuSeparator);
 menu.Add("从开头选择到光标", 2);
 menu.Add("从光标选择到结尾", 3);
@@ -565,11 +565,6 @@ switch (result) {
         if (bAnswer == true) {
             editor.ExecuteCommandByID(4102);
         }
-        break;
-    case 100:
-        alert(
-            "hp电子书制作专用排版脚本 For EmEditor （hP制作1.4版，2007.07-2008.03在此基础上增强为中华太阳系联盟版。）"
-        );
         break;
     case 101:
         //正则表达式规则
