@@ -176,7 +176,6 @@ function getTitleRegex(precomment) {
             "，" + "默认后缀=" + titleRegexesNum[i][1] +
             '\n';
     }
-    alert(titleChoiceDisplay)
     var title = prompt(precomment +
         ": 方法一， 输入能匹配标题的正则表达式；<br>方法二，输入“$#@”+以下选项编号+“@@”+后缀，例如“$#@1@@[卷章]" +
         titleChoiceDisplay + "否则取消。\n", "$#@1@@[卷章册集部回节]")
@@ -640,7 +639,6 @@ switch (result) {
         document.selection.Replace("^\\n", "", nFlags);
         //删除空行
         var title = getTitleRegex("要去掉标题前空格，（默认）") //prompt("要去掉标题前空格，（默认）输入标题表达式（或.*关键词.*），否则取消。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
-        alert("^　　(" + title + ")([　 ]*)(.*)$");
         if (title != "") {　　
             document.selection.Replace("^　　(" + title + ")([　 ]*)(.*)$",
                 "\\1　\\3", nFlags);　　
