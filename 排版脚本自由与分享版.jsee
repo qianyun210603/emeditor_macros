@@ -161,30 +161,31 @@ menu.Add("", 0, eeMenuSeparator);
 menu.Add("修正句中换行（段间有空行）", 1001);
 result = menu.Track(0);
 if (result > 40) {
-    nFlags = nFlags = eeFindNext | eeReplaceAll | eeFindReplaceRegExp;
+    nFlags = eeFindNext | eeReplaceAll | eeFindReplaceRegExp;
 }
 
-function getTitleRegex(precomment) {
+function getTitleRegex(precomment, multiLevelTitle) {
     precomment = precomment || '';
-    var titleRegexesNum = [
-        ["第[0-9一二三四五六七八九十两百千零〇]{1,7}", "[卷章册集部回节]"],
-        ["[一二三四五六七八九十两百千零〇]{1,7}", "[：、]"]
-    ];
-    titleChoiceDisplay = "";
-    for (var i = 0; i < titleRegexesNum.length; i++) {
-        titleChoiceDisplay += '    ' + ": 序号=" + titleRegexesNum[i][0] +
-            "，" + "默认后缀=" + titleRegexesNum[i][1] +
-            '\n';
+    multiLevelTitle = multiLevelTitle || false;
+    var buffer = precomment + new Array(1024 - precomment.length + 1).join( "*" );
+    var bufferFlag = editor.ExecutePlugin(
+            "EmeditorMacroDlg.dll",
+            eePluginUserMessage,
+            (((buffer.length<<1)+(multiLevelTitle?1:0))<<15)+precomment.length,
+            buffer
+        );
+    if (bufferFlag > 0) {
+        var bufferSize = bufferFlag >> 2;
+        var result = {
+            "title_regex" : buffer.substring(0, bufferSize),
+            "include_inner_text" : bufferFlag & (bufferFlag & 0x1) != 0,
+            "sep_in_title_regex" : bufferFlag & (bufferFlag & 0x2) != 0,
+        };
+        return result;
     }
-    var title = prompt(precomment +
-        ": 方法一， 输入能匹配标题的正则表达式；<br>方法二，输入“$#@”+以下选项编号+“@@”+后缀，例如“$#@1@@[卷章]" +
-        titleChoiceDisplay + "否则取消。\n", "$#@1@@[卷章册集部回节]")
-    if (title.slice(0, 3) == "$#@") {
-        parts = title.slice(3).split('@@');
-        return titleRegexesNum[parseInt(parts[0]) - 1][0] + parts[1]
-    } else
-        return title
+    return null;
 }
+
 switch (result) {
     case 1:
         alert("排版脚本 For EmEditor 1.0 （hP制作）");
@@ -633,20 +634,24 @@ switch (result) {
         document.selection.Replace("^[ 　]+", "　　", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         //删除空行
-        var title = getTitleRegex("要去掉标题前空格，（默认）") //prompt("要去掉标题前空格，（默认）输入标题表达式（或.*关键词.*），否则取消。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
-        if (title != "") {　　
+        var config = getTitleRegex("要去掉标题前空格，（默认）输入标题表达式（或.*关键词.*），否则取消。")
+        if (config != null) {
+            var title = config["title_regex"];
+            var target = config["sep_in_title_regex"]?"\\1\\3":"\\1　\\3"
             document.selection.Replace("^　　(" + title + ")([　 ]*)(.*)$",
-                "\\1　\\3", nFlags);　　
+                target, nFlags);　　
             document.selection.Replace("^　　(作品相关|正文|楔子)([　 ]*)(.*)$", "\\1　\\3",
                 nFlags);　　
             document.selection.Replace("^　　(序[册集部卷章回节]{0,1})([　 ]*)(.*)$",
-                "\\1　\\3", nFlags);　　
+                target, nFlags);　　
             document.selection.Replace("　$", "", nFlags);
         }
-        var title = getTitleRegex("增加文首三空行，段间两空行，") //prompt("增加文首三空行，段间两空行，输入标题表达式（或.*关键词.*），否则取消。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
-        if (title != "") {　　
-            document.selection.Replace("^(.*)(" + title + ")(.*)$", "\\n\\n\\0",
-                nFlags);
+        var result = getTitleRegex("增加文首三空行，段间两空行，输入标题表达式（或.*关键词.*），否则取消。")
+        if (result != null) {
+            if (config["include_inner_text"])
+                document.selection.Replace("^(.*)(" + config["title_regex"] + ")(.*)$", "\\1\\n\\n\\2\\3", nFlags);
+            else
+                document.selection.Replace("^([ 　]*)(" + config["title_regex"] + ")(.*)$", "\\n\\n\\2\\3", nFlags);
         }
         document.selection.Replace("([^ ]+)\\n\\n\\n\\n([^ ]+)",
             "\\1\\n\\n\\n\\2", nFlags);
@@ -654,8 +659,9 @@ switch (result) {
         break;
     case 116:
         //删除标题前后空格
-        var title = getTitleRegex("") //prompt("（默认）输入标题的表达式（.*关键词.*），或“册集部卷章回节”放入下面。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
-        if (title != "") {
+        var result = getTitleRegex("（默认）输入标题的表达式（.*关键词.*），或“册集部卷章回节”放入下面。") //prompt("（默认）输入标题的表达式（.*关键词.*），或“册集部卷章回节”放入下面。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
+        if (result != null) {
+            var title = config["title_regex"];
             document.selection.Replace("[ 　]+(" + title + ")", "\\1", nFlags);
             document.selection.Replace("(" + title + ")[ 　]+", "\\2 ", nFlags);
             document.selection.Replace(" 　", " ", nFlags);
@@ -670,8 +676,6 @@ switch (result) {
                 nFlags);
             document.selection.Replace("^[ 　]+(" + title +
                 ")(.*)([^ 　]+)[ 　]+$", "\\1\\2\\3", nFlags);
-        } else {
-            break;
         }
         break;
     case 117:
