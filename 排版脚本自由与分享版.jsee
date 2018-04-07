@@ -164,6 +164,7 @@ if (result > 40) {
     nFlags = eeFindNext | eeReplaceAll | eeFindReplaceRegExp;
 }
 
+// Use a plugin as customized prompt  
 function getTitleRegex(precomment, multiLevelTitle) {
     precomment = precomment || '';
     multiLevelTitle = multiLevelTitle || false;
@@ -178,8 +179,8 @@ function getTitleRegex(precomment, multiLevelTitle) {
         var bufferSize = bufferFlag >> 2;
         var result = {
             "title_regex" : buffer.substring(0, bufferSize),
-            "include_inner_text" : bufferFlag & (bufferFlag & 0x1) != 0,
-            "sep_in_title_regex" : bufferFlag & (bufferFlag & 0x2) != 0,
+            "include_inner_text" : (bufferFlag & 0x1) != 0,
+            "sep_in_title_regex" : (bufferFlag & 0x2) != 0,
         };
         return result;
     }
@@ -637,21 +638,21 @@ switch (result) {
         var config = getTitleRegex("要去掉标题前空格，（默认）输入标题表达式（或.*关键词.*），否则取消。")
         if (config != null) {
             var title = config["title_regex"];
-            var target = config["sep_in_title_regex"]?"\\1\\3":"\\1　\\3"
-            document.selection.Replace("^　　(" + title + ")([　 ]*)(.*)$",
+            var srcstart = config["include_inner_text"]?"^　　(.*)(":"^　　(";
+            var target = config["sep_in_title_regex"]?"\\1\\3":"\\1　\\3";
+            document.selection.Replace(srcstart + title + ")([　 ]*)(.*)$",
                 target, nFlags);　　
-            document.selection.Replace("^　　(作品相关|正文|楔子)([　 ]*)(.*)$", "\\1　\\3",
+            document.selection.Replace(srcstart + "作品相关|正文|楔子)([　 ]*)(.*)$", "\\1　\\3",
                 nFlags);　　
-            document.selection.Replace("^　　(序[册集部卷章回节]{0,1})([　 ]*)(.*)$",
+            document.selection.Replace(srcstart + "序[册集部卷章回节]{0,1})([　 ]*)(.*)$",
                 target, nFlags);　　
             document.selection.Replace("　$", "", nFlags);
         }
         var result = getTitleRegex("增加文首三空行，段间两空行，输入标题表达式（或.*关键词.*），否则取消。")
         if (result != null) {
             if (config["include_inner_text"])
-                document.selection.Replace("^(.*)(" + config["title_regex"] + ")(.*)$", "\\1\\n\\n\\2\\3", nFlags);
-            else
-                document.selection.Replace("^([ 　]*)(" + config["title_regex"] + ")(.*)$", "\\n\\n\\2\\3", nFlags);
+                document.selection.Replace("^(.*)(" + config["title_regex"] + ")(.*)$", "\\1\\n\\2\\3", nFlags);
+            document.selection.Replace("^([ 　]*)(" + config["title_regex"] + ")(.*)$", "\\n\\n\\2\\3", nFlags);
         }
         document.selection.Replace("([^ ]+)\\n\\n\\n\\n([^ ]+)",
             "\\1\\n\\n\\n\\2", nFlags);
