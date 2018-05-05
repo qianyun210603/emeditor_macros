@@ -9,160 +9,141 @@ VIP = CreatePopupMenu();
 内容 = CreatePopupMenu();
 HTML = CreatePopupMenu();
 正则 = CreatePopupMenu();
-if (document.selection.isempty) {
-    nFlags = eeFindNext | eeReplaceAll | eeFindReplaceRegExp;
-} else {
-    nFlags = eeFindNext | eeReplaceSelOnly | eeReplaceAll | eeFindReplaceRegExp;
-}
-menu.Add("排版脚本：自由与分享版", 100);
+
+/*******************************************************************************
+    case编号规则:按十进制个位十位为对应二级菜单，百位千位对应一级菜单，
+                 万位对应是否即使有选择也全局替换。
+********************************************************************************/
+menu.Add("排版脚本：自由与分享版", 1);
 menu.Add("", 0, eeMenuSeparator);
 menu.Add("从开头选择到光标", 2);
 menu.Add("从光标选择到结尾", 3);
+menu.Add("", 0, eeMenuSeparator);
 menu.AddPopup("VIP章节标题（预处理）", VIP1);
-VIP1.Add("使用指南：VIP章节不规范标题预处理使用", 160);
+VIP1.Add("使用指南：VIP章节不规范标题预处理使用", 10400);
 VIP1.Add("", 0, eeMenuSeparator);
-VIP1.Add("复杂标题分段：逐鹿卷第123章辞别第一节出门", 161);
-VIP1.Add("加“第章”量词：一二三 → 第一二三章", 162);
-VIP1.Add("标题内加空格：逐鹿卷第123章 → 逐鹿卷 第123章", 163);
+VIP1.Add("加“第章”量词：一二三 → 第一二三章", 10401);
+VIP1.Add("标题内加空格：逐鹿卷第123章 → 逐鹿卷 第123章", 10402);
 VIP1.Add("", 0, eeMenuSeparator);
-VIP1.Add("残缺括号配对：逐鹿卷(123 → 逐鹿卷（123）", 164);
-VIP1.Add("为标题中指定位置添加括号：逐鹿卷（123）", 165);
-VIP1.Add("为标题中关键词所在字段添加括号：逐鹿卷（上）", 166);
-menu.AddPopup("VIP章节标题（排版）", VIP);
-VIP.Add("使用指南：排版后，请用拖把更名器给图片批量改名", 170);
-VIP.Add("", 0, eeMenuSeparator);
-VIP.Add("VIP标题按顺序，加前缀排版（增强）：4-123.gif", 171);
-VIP.Add("", 0, eeMenuSeparator);
-VIP.Add("提取VIP标题序数，高级排版（推荐）：逐鹿卷-11-2.gif", 172);
-VIP.Add("提取VIP标题序数，自动排版（简单）：第一二三章.gif", 173);
-VIP.Add("使用整个VIP标题排版（省事）：逐鹿卷 第一二三章.gif", 174);
-VIP.Add("", 0, eeMenuSeparator);
-VIP.Add("VIP图片链接中序数修改：（一二三上中下 → 123）", 176);
-VIP.Add("VIP图片链接删除多余文字：（第一二三章-“辞别”.gif）", 175);
-VIP.Add("", 0, eeMenuSeparator);
-VIP.Add("VIP图片链接一分为N：（123.gif → 123a+123b+123c...）", 177);
+VIP1.Add("残缺括号配对：逐鹿卷(123 → 逐鹿卷（123）", 10403);
+VIP1.Add("为标题中指定位置添加括号：逐鹿卷（123）", 10404);
+VIP1.Add("为标题中关键词所在字段添加括号：逐鹿卷（上）", 10405);
 menu.AddPopup("标题序数整理转换", 数字);
-数字.Add("使用指南：HP排版在标题行使用", 100);
+数字.Add("使用指南：HP排版在标题行使用", 10500);
 数字.Add("", 0, eeMenuSeparator);
-数字.Add("第壹贰叁章 → 第一二三章", 138);
-数字.Add("第一二三章，第一百二十三章 → 第123章", 137);
-数字.Add("第一二三章 → 第一百二十三章", 142);
-数字.Add("第123章 → 第一百二十三章", 141);
-数字.Add("第1章 → 第001章", 109);
+数字.Add("第壹贰叁章 → 第一二三章", 10501);
+数字.Add("第一二三章，第一百二十三章 → 第123章", 10502);
+数字.Add("第一二三章 → 第一百二十三章", 10503);
+数字.Add("第123章 → 第一百二十三章", 10504);
+数字.Add("第1章 → 第001章", 10505);
 menu.AddPopup("正文章节标题整理", 标题);
-标题.Add("使用指南：HP排版在标题行使用", 100);
+标题.Add("章节标题前插入二个空行（自定义关键词）", 10601);
+标题.Add("章节标题前插入三个空行（自定义关键词）", 10602);
 标题.Add("", 0, eeMenuSeparator);
-标题.Add("章节标题前插入二个空行（自定义关键词）", 131);
-标题.Add("章节标题前插入三个空行（自定义关键词）", 132);
+标题.Add("标题前插入自定义卷名", 10603);
 标题.Add("", 0, eeMenuSeparator);
-标题.Add("标题前插入自定义卷名", 136);
+标题.Add("删除标题前后空格（自定义关键词）", 10604);
+标题.Add("删除标题前空行（自定义关键词）", 10605);
+标题.Add("删除标题后空行（自定义关键词）", 10606);
+标题.Add("删除连续重复两行的标题", 10607);
 标题.Add("", 0, eeMenuSeparator);
-标题.Add("删除标题前后空格（自定义关键词）", 116);
-标题.Add("删除标题前空行（自定义关键词）", 134);
-标题.Add("删除标题后空行（自定义关键词）", 135);
-标题.Add("", 0, eeMenuSeparator);
-标题.Add("删除连续重复两行的标题", 119);
-标题.Add("", 0, eeMenuSeparator);
-标题.Add("标题章节量词前后插入半角空格：第一二三章 → （ 第一二三章 ）", 133);
-标题.Add("标题章节序数加“第章”量词：一二三 → 第一二三章", 130);
+标题.Add("标题章节量词前后插入半角空格：第一二三章 → （ 第一二三章 ）", 10608);
+标题.Add("标题章节序数加“第章”量词：一二三 → 第一二三章", 10609);
 menu.Add("", 0, eeMenuSeparator);
 menu.AddPopup("正文内容修正（手动排版）", 内容);
-内容.Add("使用指南：HP排版在标题行使用", 100);
+内容.Add("段首插入内容（卷名，作品相关）", 700);
+内容.Add("段尾插入内容（自定义）", 701);
 内容.Add("", 0, eeMenuSeparator);
-内容.Add("文首插入自定义图片简介（输入自定义内容）", 144);
+内容.Add("使用指南：删除无用内容使用说明举例", 702);
 内容.Add("", 0, eeMenuSeparator);
-内容.Add("段首插入内容（卷名，作品相关）", 27);
-内容.Add("段尾插入内容（自定义）", 28);
+内容.Add("删除不规则乱码干扰码（数字字母ascii符号组成）", 703);
+内容.Add("删除含无用内容的句子（广告，网址）", 704);
+内容.Add("删除含无用内容的一个段落（广告，网址）", 705);
+内容.Add("删除含无用内容的多个段落（广告，网址，评论）", 706);
 内容.Add("", 0, eeMenuSeparator);
-内容.Add("使用指南：删除无用内容使用说明举例", 180);
-内容.Add("", 0, eeMenuSeparator);
-内容.Add("删除不规则乱码干扰码（数字字母ascii符号组成）", 186);
-内容.Add("删除含无用内容的句子（广告，网址）", 181);
-内容.Add("删除含无用内容的一个段落（广告，网址）", 182);
-内容.Add("删除含无用内容的多个段落（广告，网址，评论）", 183);
-内容.Add("", 0, eeMenuSeparator);
-内容.Add("修正导致HP脚本出错的文中路径（c:\\windows\\）", 184);
-内容.Add("文中英文全部转为小写", 185);
-内容.Add("", 0, eeMenuSeparator);
-内容.Add("保存换行为CR+LF（hP电子书制作软件只支持此换行）", 401);
-内容.Add("保存编码为ANSI（系统默认GB2312）", 402);
+内容.Add("保存换行为CR+LF", 707);
+内容.Add("保存编码为ANSI（系统默认GB2312）", 708);
 menu.AddPopup("段落格式整理", 段落);
-段落.Add("使用指南：若用于编辑非小说文档，慎重使用", 100);
+段落.Add("使用指南：若用于编辑非小说文档，慎重使用", 000);
 段落.Add("", 0, eeMenuSeparator);
-段落.Add("规范行首（2全角空格）段首（3空行）段间（2空行）", 115);
-段落.Add("段落重排（删空行，标点关键词分段，规范行首，段落间两空行）", 124);
-段落.Add("段落重排（删错误句中回车，重新分段）", 99);
-段落.Add("删除硬回车", 123);
+段落.Add("规范行首（2全角空格）段首（3空行）段间（2空行）", 10800);
+段落.Add("规范行首（2全角空格）段首（3空行）段间（2空行）【多级标题】", 10801);
+段落.Add("段落重排（删空行，标点关键词分段，规范行首，段落间两空行）", 10802);
+段落.Add("段落重排（删错误句中回车，重新分段）", 10803);
+段落.Add("修正句中换行（段间有空行）", 10813);
+段落.Add("删除硬回车", 10804);
 段落.Add("", 0, eeMenuSeparator);
-段落.Add("删除空行（含空格）", 22);
-段落.Add("删除空行的空格（不含空行）", 122);
-段落.Add("段落间统一为两个空行（去除空行空格）", 126);
-段落.Add("段落间加入两个空行（简单）", 127);
+段落.Add("删除空行（含空格）", 805);
+段落.Add("删除空行的空格（不含空行）", 806);
+段落.Add("段落间统一为两个空行（去除空行空格）", 10807);
+段落.Add("段落间加入两个空行（简单）", 10808);
 段落.Add("", 0, eeMenuSeparator);
-段落.Add("删除段落首尾空格", 14);
-段落.Add("删除段首半角空格", 15);
-段落.Add("删除段首全角空格", 16);
-段落.Add("删除段尾空格", 17);
+段落.Add("删除段落首尾空格", 809);
+段落.Add("删除段首半角空格", 810);
+段落.Add("删除段首全角空格", 811);
+段落.Add("删除段尾空格", 812);
 menu.AddPopup("空格格式整理", 空格);
-空格.Add("使用指南：若内文中有英文句子，切勿删除所有空格", 100);
+空格.Add("使用指南：若内文中有英文句子，切勿删除所有空格", 00);
 空格.Add("", 0, eeMenuSeparator);
-空格.Add("删除所有空格（慎用）", 11);
-空格.Add("删除所有半角空格（慎用）", 12);
-空格.Add("删除所有全角空格", 13);
-空格.Add("删除所有内文空格（不含行首标题空格）", 18);
+空格.Add("删除所有空格（慎用）", 900);
+空格.Add("删除所有半角空格（慎用）", 901);
+空格.Add("删除所有全角空格", 902);
+空格.Add("删除所有内文空格（不含行首标题空格）", 903);
 空格.Add("", 0, eeMenuSeparator);
-空格.Add("多个空格 → 一个半角空格", 120);
-空格.Add("多个空格 → 两个全角空格", 98);
+空格.Add("多个空格 → 一个半角空格", 904);
+空格.Add("多个空格 → 两个全角空格", 905);
 menu.AddPopup("符号整理：数字，字母，标点，空格", 符号);
-符号.Add("使用指南：若用于编辑非小说文档，慎重使用", 100);
+符号.Add("使用指南：若用于编辑非小说文档，慎重使用", 00);
 符号.Add("", 0, eeMenuSeparator);
-符号.Add("半角空格 → 全角空格", 118);
-符号.Add("半角标点 → 全角标点", 31);
-符号.Add("半角aA → 全角ａＡ", 35);
-符号.Add("半角123 → 全角１２３", 34);
+符号.Add("文中英文全部转为小写", 1000);
 符号.Add("", 0, eeMenuSeparator);
-符号.Add("全角空格 → 半角空格", 117);
-符号.Add("全角标点 → 半角标点", 32);
-符号.Add("全角ａＡ → 半角aA", 33);
-符号.Add("全角１２３→半角123", 139);
+符号.Add("半角空格 → 全角空格", 1001);
+符号.Add("半角标点 → 全角标点", 1002);
+符号.Add("半角aA → 全角ａＡ", 1003);
+符号.Add("半角123 → 全角１２３", 1004);
 符号.Add("", 0, eeMenuSeparator);
-符号.Add("一二三 → 123（正文慎用）", 140);
-符号.Add("中文引号「」＆『』 → “”", 30);
+符号.Add("全角空格 → 半角空格", 1005);
+符号.Add("全角标点 → 半角标点", 1006);
+符号.Add("全角ａＡ → 半角aA", 1007);
+符号.Add("全角１２３→半角123", 1008);
 符号.Add("", 0, eeMenuSeparator);
-符号.Add("规范省略号(。。。)(”。)(。…)→ …", 129);
-符号.Add("规范段首标点到上段尾", 128);
+符号.Add("一二三 → 123（正文慎用）", 1009);
+符号.Add("中文引号「」＆『』 → “”", 1010);
+符号.Add("", 0, eeMenuSeparator);
+符号.Add("规范省略号(。。。)(”。)(。…)→ …", 1011);
+符号.Add("规范段首标点到上段尾", 1012);
 menu.Add("", 0, eeMenuSeparator);
 menu.AddPopup("HTML源代码内容修正", HTML);
-HTML.Add("使用指南：HTML修正", 190);
+HTML.Add("使用指南：HTML修正", 1100);
 HTML.Add("", 0, eeMenuSeparator);
-HTML.Add("删除代码（块<DIV关键词</DIV>）", 191);
-HTML.Add("删除代码（标签<META content=关键词>）", 192);
-HTML.Add("删除代码（文本链接<A href=关键词</A>）", 194);
-HTML.Add("删除代码（图片链接<IMG关键词>）", 195);
-HTML.Add("删除代码（整行<TD>关键词</TD>）", 196);
-HTML.Add("删除代码（整段<TR>关键词</TR>）", 197);
-HTML.Add("删除代码（表格<TABLE关键词</TABLE>）", 198);
-HTML.Add("删除代码（框架<IFRAME关键词</IFRAME>）", 199);
+HTML.Add("删除代码（块<DIV关键词</DIV>）", 1101);
+HTML.Add("删除代码（标签<META content=关键词>）", 1102);
+HTML.Add("删除代码（文本链接<A href=关键词</A>）", 1103);
+HTML.Add("删除代码（图片链接<IMG关键词>）", 1104);
+HTML.Add("删除代码（整行<TD>关键词</TD>）", 1105);
+HTML.Add("删除代码（整段<TR>关键词</TR>）", 1106);
+HTML.Add("删除代码（表格<TABLE关键词</TABLE>）", 1107);
+HTML.Add("删除代码（框架<IFRAME关键词</IFRAME>）", 1108);
 HTML.Add("", 0, eeMenuSeparator);
-HTML.Add("删除代码（广告脚本SCRIPT）", 193);
-HTML.Add("删除代码（<SPAN不可见干扰乱码</SPAN>）", 189);
-HTML.Add("删除代码（<FONT不可见干扰乱码</FONT>）", 188);
+HTML.Add("删除代码（广告脚本SCRIPT）", 1109);
+HTML.Add("删除代码（<SPAN不可见干扰乱码</SPAN>）", 1110);
+HTML.Add("删除代码（<FONT不可见干扰乱码</FONT>）", 1111);
 menu.AddPopup("正则表达式使用简要说明", 正则);
-正则.Add("认识正则表达式", 103);
-正则.Add("正则表达式规则", 101);
-正则.Add("正则表达式字符", 102);
-正则.Add("正则表达式符号使用须知", 104);
-正则.Add("正则表达式易犯错误", 105);
-正则.Add("正则表达式使用技巧", 106);
+正则.Add("认识正则表达式", 1200);
+正则.Add("正则表达式规则", 1201);
+正则.Add("正则表达式字符", 1202);
+正则.Add("正则表达式符号使用须知", 1203);
+正则.Add("正则表达式易犯错误", 1204);
+正则.Add("正则表达式使用技巧", 1205);
 正则.Add("", 0, eeMenuSeparator);
-正则.Add("常见正则表达式", 107);
-正则.Add("常见描述标题的正则表达式", 108);
-menu.Add("", 0, eeMenuSeparator);
-menu.Add("修正句中换行（段间有空行）", 1001);
+正则.Add("常见正则表达式", 1206);
+正则.Add("常见描述标题的正则表达式", 1207);
+
 result = menu.Track(0);
-if (result > 40) {
+if (document.selection.isempty || result > 9999)
     nFlags = eeFindNext | eeReplaceAll | eeFindReplaceRegExp;
-}
+else
+    nFlags = eeFindNext | eeReplaceSelOnly | eeReplaceAll | eeFindReplaceRegExp;
 
 // Use a plugin as customized prompt  
 function getTitleRegex(precomment, multiLevelTitle) {
@@ -178,7 +159,7 @@ function getTitleRegex(precomment, multiLevelTitle) {
     if (bufferFlag > 0) {
         var bufferSize = bufferFlag >> 2;
         var result = {
-            "title_regex" : buffer.substring(0, bufferSize),
+            "title_regex" : multiLevelTitle?buffer.substring(0, bufferSize).split("\n"):buffer.substring(0, bufferSize),
             "include_inner_text" : (bufferFlag & 0x1) != 0,
             "sep_in_title_regex" : (bufferFlag & 0x2) != 0,
         };
@@ -197,36 +178,36 @@ switch (result) {
     case 3:
         document.selection.EndOfDocument(true);
         break;
-    case 11:
+    case 900:
         //删除所有空格
         document.selection.Replace("[ 　]", "", nFlags);
         break;
-    case 12:
+    case 901:
         //删除所有半角空格
         document.selection.Replace(" ", "", nFlags);
         break;
-    case 13:
+    case 902:
         //删除所有全角空格
         document.selection.Replace("　", "", nFlags);
         break;
-    case 14:
+    case 809:
         //删除段落首尾空格
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         //删除段落首尾空格
         break;
-    case 15:
+    case 810:
         //删除段首半角空格
         document.selection.Replace("^ *", "", nFlags);
         break;
-    case 16:
+    case 811:
         //删除段首全角空格
         document.selection.Replace("^　*", "", nFlags);
         break;
-    case 17:
+    case 812:
         //删除段尾空格
         document.selection.Replace("[ 　]*$", "", nFlags);
         break;
-    case 18:
+    case 903:
         //删除所有内文空格，正文 第二部 逐鹿 第一十章 开路
         bAnswer = confirm(
             "已经排好版的文本按确定，未排版的按取消（可能有些无完整“第章”量词的标题受影响，请另行补齐“第章”量词和空格）。");
@@ -271,28 +252,28 @@ switch (result) {
         }
         alert("请使用指南检查，若有标题中空格被删除，请用“全部替换”功能为标题相应部位添加空格");
         break;
-    case 22:
+    case 805:
         //删除空行（含空格）
         document.selection.Replace("^[ 　]*\\n", "", nFlags);
         break;
-    case 27:
+    case 700:
         //段首插入
         var insert = prompt("（默认）输入段首插入的文本", "hP");
         if (insert != "") document.selection.Replace("^.+", insert + "\\0",
             nFlags);
         break;
-    case 28:
+    case 701:
         //段尾插入
         var insert = prompt("（默认）输入段尾插入的文本", "hP")
         if (insert != "") document.selection.Replace(".+$", "\\0" + insert,
             nFlags);
         break;
-    case 30:
+    case 1010:
         //「」＆『』 → “”
         document.selection.Replace("[「『]", "“", nFlags);
         document.selection.Replace("[」』]", "”", nFlags);
         break;
-    case 31:
+    case 1002:
         //半角标点符号 → 全角标点符号
         document.selection.Replace(",", "，", eeFindNext | eeReplaceAll);
         document.selection.Replace(".", "。", eeFindNext | eeReplaceAll);
@@ -311,7 +292,7 @@ switch (result) {
             eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
         document.selection.Replace("\x22", "“", eeFindNext | eeReplaceAll);
         break;
-    case 32:
+    case 1006:
         //全角标点 → 半角标点
         document.selection.Replace("，", ",", eeFindNext | eeReplaceAll);
         document.selection.Replace("。", ".", eeFindNext | eeReplaceAll);
@@ -327,7 +308,7 @@ switch (result) {
             eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
         document.selection.Replace("“", "\x22", eeFindNext | eeReplaceAll);
         break;
-    case 33:
+    case 1007:
         //全角ａＡ → 半角 aA
         document.selection.Replace("ｑ", "q", eeFindNext | eeFindReplaceCase |
             eeReplaceAll);
@@ -434,7 +415,7 @@ switch (result) {
         document.selection.Replace("Ｍ", "M", eeFindNext | eeFindReplaceCase |
             eeReplaceAll);
         break;
-    case 34:
+    case 1004:
         //半角123→全角１２３
         document.selection.Replace("1", "１", eeFindNext | eeReplaceAll);
         document.selection.Replace("2", "２", eeFindNext | eeReplaceAll);
@@ -447,7 +428,7 @@ switch (result) {
         document.selection.Replace("9", "９", eeFindNext | eeReplaceAll);
         document.selection.Replace("0", "０", eeFindNext | eeReplaceAll);
         break;
-    case 35:
+    case 1003:
         //半角aA转全角ａＡ
         document.selection.Replace("q", "ｑ", eeFindNext | eeFindReplaceCase |
             eeReplaceAll);
@@ -554,111 +535,158 @@ switch (result) {
         document.selection.Replace("M", "Ｍ", eeFindNext | eeFindReplaceCase |
             eeReplaceAll);
         break;
-    case 401:
+    case 707:
         //CR+LF
         bAnswer = confirm("是否更改换行为CR+LF（Windows）？");
         if (bAnswer == true) {
             editor.ExecuteCommandByID(4105);
         }
         break;
-    case 402:
+    case 708:
         //ANSI
         bAnswer = confirm("是否更改编码为ANSI（系统默认GB2312）？");
         if (bAnswer == true) {
             editor.ExecuteCommandByID(4102);
         }
         break;
-    case 101:
+    case 1201:
         //正则表达式规则
         alert(
             "使用一系列的特殊字符来获取字符串，提供与预期的搜索结果匹配的确切文本来进行字符串的搜索和替换操作。\n\n正则表达式从某种意义上可说是一种语言, 通过简短的一行代码即可以精确描述要匹配的复杂文本。\n\n正则表达式是普通字符和元字符组合的一种模式。它的结构与算术表达式的结构类似, 各种元字符和运算符可以将小的表达式组合起来，创建大的表达式。通过在一对分隔符之间放置表达式模式的各种组件，就可以构建正则表达式。"
         );
         break;
-    case 102:
+    case 1202:
         //正则表达式字符
         alert(
             "emeditor的替换窗口，选中使用正则表达式，在上面的两个输入框的右侧都有一个向右的箭头，点击就会打开特殊字符列表。\n\n1. 特殊字符是指\n( . * ? + ( ) { } [ ] ^ $ \ ) \n2.普通字符，是指除了特殊字符之外的所有其他字符。\n而这些特殊字符也可以通过前面加上\\前缀而变为普通字符。\n\n \. 匹配除换行符（\\n）之外的任何单个字符。 \n( ) 括号表达式。 \n[ ] 中括号表达式。\n在方括号内包含一个或多个字符。普通字符在中括号内表示本身，大多数特殊字符在中括号内作为普通字符。\n除了转义字符\\, (要包含\\, 需要使用\\\) \n可以用连字符 '-' 将范围中的开始字符和结束字符分开。单个字符的字符值确定范围内的相对顺序。\n如果需要匹配不属于列表或范围内的任何字符，可以在列表开头加上\^前缀。\n中括号表达式还可进行组合, 如 [A-Za-z0-9] 匹配A-Z, a-z, 0-9 。\n\n字符\\ 将下一字符标记为特殊字符、文本、反向引用或八进制转义符。\n例如，字符 n 匹配字符 n。\\n 匹配换行符。 \\\\ 匹配 \\， \\\( 匹配 \(。 \n\n\| 替换字符, 对\|左右的两个项分别匹配进行选择。或者说, 就是逻辑的OR的概念 \n\n{ } 标记限定符表达式。 指定正则表达式的某个部分必须出现的次数。\n * 零次或多次匹配前面的字符或子表达式。 \n+ 一次或多次匹配前面的字符或子表达式。\n? 零次或一次匹配前面的字符或子表达式。\n{n} n 是非负整数。匹配 n 次。 \n{n,} n 是非负整数。至少匹配 n 次。 \n{n,m} m 和 n 是非负整数，其中 n <= m。至少匹配 n 次，至多匹配 m 次。"
         );
         break;
-    case 103:
+    case 1200:
         //认识正则表达式
         alert(
             "排版脚本中使用正则表达式来进行批量化的文本替换处理，首先编辑脚本语言，会打开编辑界面。这里的文本，就是使用脚本规范编写。其中的一行一行的公式才是使用了正则表达式。\n例如：\n document\.selection\.Replace\(\"\^\.\+\"\,\"a\\\\0b\",nFlags\);//给\n括号内加引号的部分\(\"\.\+\"\,\"  \\\\0  \"\)才是正则表达式。\n其中\^表示从行首开始，\.表示任意字符，\+表示重复前一个字符至少一次，\\\\0表示前面表达式获取的所有内容。\n document\.selection\.Replace的意思就是把括号内左引号部分表达式替换为右引号表达式部分。\n左表达式获取一行中所有内容，右表达式则把获取的整个内容的左边加上a，右边加上b。\n\n现在我们就可以使用复制粘贴，建立一行一行的表达式了。从一个case开始，到break;结束，中间的内容都大同小异，我们所要更改的就是引号内的正则表达式。\n用各种正则表达式的特殊符号，来捕获成为获取按一定规则构成的一系列字符或句子。\n\n具体要多看多揣摩已有的脚本。"
         );
         break;
-    case 104:
+    case 1203:
         //正则表达式符号使用须知
         alert(
             "1.左表达式必须用\\\\来引用特殊字符，而右表达式中所有特殊字符都可以作为普通字符使用。\n但是不要滥用\\\\，如果在普通字符前用\\\\会导致错误。\n\n2.要在表达式中使用半角双引号只能用“\\x22”代替。对于其他特殊字符也可以使用\\xnn 引用ASCII代码中编号为nn（两位十六进制0-255）的字符。 \n\n3.正则表达式中不需要反斜杠引用直接可以使用的半角普通符号：<>'-;\n\n4.特殊符号必须使用双斜杠\\\\来取消这些字符的特殊意义转换成普通符号：|\()^$.*+{}[]?\n\n5.全角符号可以在表达式中直接引用。\n\n6.使用\\unnnn 引用ASCII代码中编号为nnnn（四位十六进制）的字符。\n匹配中文字符的正则表达式： [\\u4e00-\\u9fa5]（其中编号为ASCII代码中中文的起始和结尾两个字的编码）\n匹配双字节字符(包括汉字在内)：[^\\x00-\\xff]\n"
         );
         break;
-    case 105:
+    case 1204:
         //正则表达式易犯错误
         alert(
             "1.\[\-\]中要引用\-必须使用\[\\-\]，否则被当作字符范围了。\n2.（.*）和（.+）的区别，前一个是至少有零个字符，后一个至少有一个字符，在某些场合是很重要的区分。经常容易混淆导致出错，所以要经过反复测试。\n3.\. 不匹配除换行符 \n4.\^表示从行首开始，但如果要捕获的内容只是看上去从行首开始，却会导致出错。\n5.对于操作符如“\\n”，在表达式中要写成双斜杠“\\\\n”，第一个斜杠表示后面是特殊字符或操作符，特殊字符只使用单斜杠“\\”即可。在表达式右侧特殊字符可以不用斜杠，直接当作普通字符。\n5.使用\\\\0会获取前面引号内的整个表达式，而不是仅仅在括号内的子表达式。"
         );
         break;
-    case 106:
+    case 1205:
         //正则表达式使用技巧
         alert(
             "1.在使用脚本的时候，在弹出的大多数对话框中，可以使用正则表达式。特别是输入关键词的时候，使用（.+）来间隔第二个关键词。使用（[^ ]+）表示用非空格字符来作为间隔。使用中括号表达式（[卷章回节集部册]）来引用定义范围内的关键词。\n\n2.(集|册|部|卷|章|回|节)和[卷章回节集部册]是一样的。括号表达式用“|”表示“或者”，中括号表达式不需要任何符号表示包括，使用“^”表示不包括。\n\n3.\\(.*\\)匹配括号中的字“（上）”。\n\n4.（.+）表示至少有一个任意字符，（.*）表示至少有零个任意字符。"
         );
         break;
-    case 107:
+    case 1206:
         //常见正则表达式
         alert(
             "“[^ ]*关键词.*”，或“第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]”//匹配非空格+关键词+任意字符或者第xx章（xx为非空格字符至少有一个最多为五个）。\n\n document\.selection\.Replace\(\"　\"\,\" \"\,nFlags\)\;//全角改成半角空格\n\ndocument\.selection\.Replace\(\"\^\\\\n\"\,\"\"\,nFlags\)\;//删除空行\n\ndocument\.selection\.Replace\(\"\^\(\.\+\)\\\\n\\ \\1\"\,\"\\ \\1\"\,nFlags\)\;//删除重复行\n\ndocument\.selection\.Replace\(\"\^Copyright \.\+\\\\n\.\+\\\\n\.\+\\\\n\.\+\"\,\"\"\,nFlags\)\;//删除Copyright所在行及其下三行的内容\n\ndocument\.selection\.Replace\(\"\(\[\^\"\+separator\+\"\]\)\\\\n\"\,\"\\ \\1\"\,nFlags\)\;//标点分段\n\ndocument\.selection\.Replace\(\"\(\^\[ 　\]\*\)\|\(\[ 　\]\*\$\)\"\,\"\"\,nFlags\)\;//删除段落首尾空格"
         );
         break;
-    case 108:
+    case 1207:
         //常见标题正则表达式
         alert(
             "1.“第[^ ]{1,5}[册集部卷章回节]”//匹配非空格+关键词+任意字符或者第xx章（xx为非空格字符至少有一个最多为五个）。\n使用指南：有可能出现“状元及第的陈焕章”这种情况导致错误，需要手动处理，或者改用更详细的表达式。\n\n“第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]”\n\n2.“[一二三四五六七八九十两零百]+、”对应于：“一十、”\n\n3.“[0-9]\\\\.”对应于“10.”\n"
         );
         break;
-    case 109:
+    case 10505:
         //第1章 → 第001章
         alert("本功能只针对“第xx(集|册|部|卷|章|回|节)”这种格式的标题。");
         document.selection.Replace("(第)(\\d)([册集部卷章回节])", "\\100\\2\\3", nFlags);
         document.selection.Replace("(第)(\\d\\d)([册集部卷章回节])", "\\10\\2\\3",
             nFlags);
         break;
-    case 114:
-        break;
-    case 115:
-        //规范行首段首
-        document.selection.Replace(" \\n([^ 　])", "\\1", nFlags);
-        //去除硬回车
+    case 10800:
+        //删除空行
         document.selection.Replace("^[ 　]+\\n", "", nFlags);
-        document.selection.Replace("[ 　]+$", "", nFlags);
+        //段首二全角空格
         document.selection.Replace("^([^ 　]+)", "　　\\1", nFlags);
         document.selection.Replace("^[ 　]+", "　　", nFlags);
+        //删除空行（原无空格情况）
         document.selection.Replace("^\\n", "", nFlags);
-        //删除空行
-        var config = getTitleRegex("要去掉标题前空格，（默认）输入标题表达式（或.*关键词.*），否则取消。")
+        var config = getTitleRegex("去掉标题前空格，增加文首三空行，段间两空行，输入标题表达式（或.*关键词.*），否则取消。")
         if (config != null) {
             var title = config["title_regex"];
-            var srcstart = config["include_inner_text"]?"^　　(.*)(":"^　　(";
-            var target = config["sep_in_title_regex"]?"\\1\\3":"\\1　\\3";
-            document.selection.Replace(srcstart + title + ")([　 ]*)(.*)$",
-                target, nFlags);　　
-            document.selection.Replace(srcstart + "作品相关|正文|楔子)([　 ]*)(.*)$", "\\1　\\3",
-                nFlags);　　
-            document.selection.Replace(srcstart + "序[册集部卷章回节]{0,1})([　 ]*)(.*)$",
-                target, nFlags);　　
-            document.selection.Replace("　$", "", nFlags);
-        }
-        var result = getTitleRegex("增加文首三空行，段间两空行，输入标题表达式（或.*关键词.*），否则取消。")
-        if (result != null) {
             if (config["include_inner_text"])
-                document.selection.Replace("^(.*)(" + config["title_regex"] + ")(.*)$", "\\1\\n\\2\\3", nFlags);
+                document.selection.Replace("^(　　[^\\s](.*?))(?=内容简介|作品相关|正文|楔子|序[册集部卷章回节]{0,1}|" + title + ")", "\\1\\n", nFlags);　
+            var target = config["sep_in_title_regex"]?"\\1\\3":"\\1　\\3";
+            //标题格式整理
+            document.selection.Replace("^　　(" + title + ")([　 ]*)(.*)$", target, nFlags);　　
+            document.selection.Replace("^　　(" + "内容简介|作品相关|正文|楔子)([　 ]*)(.*)$", "\\1　\\3", nFlags);
+            document.selection.Replace("^　　(" + "序[册集部卷章回节]{0,1})([　 ]*)(.*)$", target, nFlags);
+            document.selection.Replace("　$", "", nFlags);
+            //段间空行
             document.selection.Replace("^([ 　]*)(" + config["title_regex"] + ")(.*)$", "\\n\\n\\2\\3", nFlags);
         }
+        //删除段尾空格
+        document.selection.Replace("[ 　]+$", "", nFlags);
         document.selection.Replace("([^ ]+)\\n\\n\\n\\n([^ ]+)",
             "\\1\\n\\n\\n\\2", nFlags);
         document.selection.Replace("([^ ]+)\\n\\n([^ ]+)", "\\1\\n\\2", nFlags);
         break;
-    case 116:
+    case 10801:
+        document.selection.Replace("^[ 　]+\\n", "", nFlags);
+        //段首二全角空格
+        document.selection.Replace("^([^ 　]+)", "　　\\1", nFlags);
+        document.selection.Replace("^[ 　]+", "　　", nFlags);
+        //删除空行（原无空格情况）
+        document.selection.Replace("^\\n", "", nFlags);
+        var config = getTitleRegex("去掉标题前空格，增加文首三空行，段间两空行，输入各级标题表达式（或.*关键词.*），否则取消。", true)
+        if (config != null) {
+            var titlelevelnum = config["title_regex"].length;
+            
+            var splitRegex = config["include_inner_text"]?"^(　　.*?)":"";
+            var findRegex = config["include_inner_text"]?"^　　.*?(?!\\n)":"^　　(?!\\n)";
+            for (var i = 0; i < titlelevelnum - 1; ++i)
+            {
+                splitRegex += "((" + config["title_regex"][i] + ")[　 ]*(.*?)(?=(" + config["title_regex"][i+1] + ")?))?";
+                findRegex += "((" + config["title_regex"][i] + ")[　 ]*(.*?))?";
+            }
+            splitRegex += "((" + config["title_regex"][titlelevelnum-1] + ")[　 ]*(.*))?\n";
+            splitRegex = new RegExp(splitRegex);
+            findRegex += "((" + config["title_regex"][titlelevelnum-1] + ")[　 ]*(.*))?\\n";
+            
+            var titlesep = config["sep_in_title_regex"]?"":"　";
+            var offset = config["include_inner_text"]?3:2;
+            previousTitle = new Array(titlelevelnum);
+            lastleveltitlehandled = true;
+            
+            document.selection.StartOfDocument();
+            while(document.selection.Find(findRegex, eeFindReplaceRegExp | eeFindNext))
+            {
+                m = document.selection.Text.match(splitRegex);
+
+                target = (config["include_inner_text"] && m[1] != "　　")?m[1] + "\n":"";
+                target += lastleveltitlehandled?"\n\n":"";
+
+                for (var i = 0; i < titlelevelnum; ++i)
+                {
+                    if (m[4*i+offset] != "" && m[4*i+offset] != previousTitle[i])
+                    {
+                        target += m[4*i+offset] + titlesep + m[4*i+offset+1] + "\n";
+                        previousTitle[i] = m[4*i+offset];
+                        lastleveltitlehandled = (i == titlelevelnum - 1);
+                    }
+                    else
+                        lastleveltitlehandled = false;
+                }
+                document.selection.Text = target
+            }
+        }
+        document.selection.Replace("[ 　]+$", "", nFlags);
+        document.selection.Replace("([^ ]+)\\n\\n\\n\\n([^ ]+)",
+        "\\1\\n\\n\\n\\2", nFlags);
+        document.selection.Replace("([^ ]+)\\n\\n([^ ]+)", "\\1\\n\\2", nFlags);
+        break;
+    case 10604:
         //删除标题前后空格
         var result = getTitleRegex("（默认）输入标题的表达式（.*关键词.*），或“册集部卷章回节”放入下面。") //prompt("（默认）输入标题的表达式（.*关键词.*），或“册集部卷章回节”放入下面。", "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
         if (result != null) {
@@ -679,14 +707,14 @@ switch (result) {
                 ")(.*)([^ 　]+)[ 　]+$", "\\1\\2\\3", nFlags);
         }
         break;
-    case 117:
+    case 1005:
         //替换全角空格为半角空格
         bAnswer = confirm("警告：如果已经排好版面，行首加了空格，请勿使用。");
         if (bAnswer == true) {
             document.selection.Replace("[　]+", " ", nFlags);
         }
         break;
-    case 118:
+    case 1001:
         //替换半角空格为全角空格
         bAnswer = confirm("警告：如果已经排好版面，请勿使用。");
         if (bAnswer == true) {
@@ -694,7 +722,7 @@ switch (result) {
             document.selection.Replace("[　]+", "　　", nFlags);
         }
         break;
-    case 119:
+    case 10607:
         //删除重复标题
         alert("使用本功能有可能导致错误删除，请慎用。\n例如：\n第四部\n机械工业部第四部下属单位");
         var title = prompt("（默认）输入标题的表达式（.*关键词.*）",
@@ -709,7 +737,7 @@ switch (result) {
                 nFlags);
         }
         break;
-    case 120:
+    case 904:
         //统一所有空格为一个半角空格
         bAnswer = confirm("警告：如果已经排好版面，请勿使用。");
         if (bAnswer == true) {
@@ -717,7 +745,7 @@ switch (result) {
             document.selection.Replace("[ 　]+", " ", nFlags);
         }
         break;
-    case 98:
+    case 905:
         //统一所有空格为两个全角空格
         bAnswer = confirm("警告：如果已经排好版面，请勿使用。");
         if (bAnswer == true) {
@@ -725,11 +753,11 @@ switch (result) {
             document.selection.Replace("[ 　]+", "　　", nFlags);
         }
         break;
-    case 122:
+    case 806:
         //删除空行的空格，不含空行
         document.selection.Replace("^[ 　]*$", "", nFlags);
         break;
-    case 123:
+    case 10804:
         //删除硬回车
         document.selection.Replace("^[ ]+\\n", "", nFlags);
         bAnswer = confirm(
@@ -748,7 +776,7 @@ switch (result) {
             document.selection.Replace("(" + title + ")", "\\n\\1", nFlags);
         }
         break;
-    case 124:
+    case 10802:
         //段落重排
         var separator = prompt("若已将半角标点转为全角，（默认）输入分段依据的字符或关键词。", "[。：？！…]");
         if (separator != "") {
@@ -781,7 +809,7 @@ switch (result) {
                 nFlags);
         }
         break;
-    case 99:
+    case 10803:
         //段落重排（删错误回车，重新分段）
         document.selection.Replace("^\\n\\n", "【临时标记】", nFlags);
         document.selection.Replace("([^ 　]+)\\n([^ 　]+)", "\\1\\2", nFlags);
@@ -794,7 +822,7 @@ switch (result) {
         document.selection.Replace("([^ 　]+)[ 　]+", "\\1\\n　　", nFlags);
         document.selection.Replace("【临时标记】", "\\n\\n\\n", nFlags);
         break;
-    case 126:
+    case 10807:
         //段落间统一为两个空行（去除空格）
         document.selection.Replace("^[ 　]+\\n", "", nFlags);
         //去空行
@@ -811,7 +839,7 @@ switch (result) {
                 nFlags);
         }
         break;
-    case 127:
+    case 10808:
         //段落间加入两个空行
         var title = prompt("（默认）输入标题的表达式（或自行输入.*关键词.*），否则取消。",
             "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
@@ -821,7 +849,7 @@ switch (result) {
                 nFlags);
         }
         break;
-    case 128:
+    case 1012:
         //规范段首标点到上段尾
         bAnswer = confirm("半角标点先要转换为全角标点，以便更有效处理。");
         if (bAnswer == true) {
@@ -837,7 +865,7 @@ switch (result) {
             break;
         }
         break;
-    case 129:
+    case 1011:
         //规范省略号
         document.selection.Replace("。。。", "…", nFlags);
         document.selection.Replace("。。", "…", nFlags);
@@ -848,7 +876,7 @@ switch (result) {
         document.selection.Replace("[………]+", "……", nFlags);
         document.selection.Replace("[^…][…][^…]", "……", nFlags);
         break;
-    case 130:
+    case 10609:
         //标题加章节量词
         bAnswer = confirm(
             "1.有可能把标题内容误作标题序数（比如“十二章 天下第一”，会处理为“第十二章 天下第一章”），使用指南检查。\n2.处理对象必须是已经排好版分好段的内容。而且标题中的各个词之间已加好空格，标题前无空格。（比如“十二章天下第一”，要处理为“十二章 天下第一”）\n3.\n\n按确定，自动分析序数，添加“第章”量词。\n按取消，手动给标题中的指定位置添加“第章”量词。"
@@ -914,7 +942,7 @@ switch (result) {
         document.selection.Replace("第章", "第", nFlags);
         document.selection.Replace("^[ ]+", "", nFlags);
         break;
-    case 131:
+    case 10601:
         //标题前插入二个空行
         var title = prompt("（默认）输入标题的关键词（第一个字词），下面方括号中可用“册集部卷章回节”。",
             "第[0-9一二三四五六七八九十两百零〇]{1,5}[部]");
@@ -926,7 +954,7 @@ switch (result) {
             break;
         }
         break;
-    case 132:
+    case 10602:
         ///标题前插入三个空行
         var title = prompt("（默认）输入标题的关键词（第一个字词），下面方括号中可用“册集部卷章回节”。",
             "第[0-9一二三四五六七八九十两百零〇]{1,5}[部]");
@@ -938,7 +966,7 @@ switch (result) {
             break;
         }
         break;
-    case 133:
+    case 10608:
         //标题章节前后插入一个半角空格
         var title = prompt("（默认）输入标题表达式（.*关键词.*），可能正文中有相似文字会被加上空格。",
             "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
@@ -950,7 +978,7 @@ switch (result) {
             document.selection.Replace("^[ ]+", "", nFlags);
         }
         break;
-    case 134:
+    case 10605:
         //删除标题前空行
         var title = prompt("（默认）输入标题的正则表达式（.*关键词.*），下面方括号中可用“册集部卷章回节”。",
             "第[0-9一二三四五六七八九十两百零〇]{1,5}[部]");
@@ -963,7 +991,7 @@ switch (result) {
             break;
         }
         break;
-    case 135:
+    case 10606:
         //删除标题后空行（卷名 第123章 )
         var title = prompt("（默认）输入标题的正则表达式（.*关键词.*），下面方括号中可用“册集部卷章回节”。",
             "第[0-9一二三四五六七八九十两百零〇]{1,5}[章]");
@@ -982,7 +1010,7 @@ switch (result) {
             break;
         }
         break;
-    case 136:
+    case 10603:
         //标题前插入自定义内容
         var title = prompt("（默认）输入标题表达式，或标题第一个词（.*关键词.*）。",
             "第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]");
@@ -999,7 +1027,7 @@ switch (result) {
             break;
         }
         break;
-    case 137:
+    case 10502:
         //第一二三章 → 第123章
         alert("本功能只针对“第xx(集|册|部|卷|章|回|节)”这种格式的标题。");
         var num = 1;
@@ -1165,7 +1193,7 @@ switch (result) {
         }
         //document.selection.Replace("[ ]+"," ",nFlags);
         break;
-    case 138:
+    case 10501:
         //第壹贰叁章 → 第一二三章
         alert("本功能只针对“第xx(集|册|部|卷|章|回|节)”这种格式的标题。");
         var num = 1;
@@ -1279,7 +1307,7 @@ switch (result) {
         }
         document.selection.Replace("[ ]+", " ", nFlags);
         break;
-    case 139:
+    case 1008:
         //全角１２３→半角123
         var found = 5;
         while (found) {
@@ -1342,7 +1370,7 @@ switch (result) {
                 eeReplaceAll);
         }
         break;
-    case 140:
+    case 1009:
         //一二三 → 123
         var num = 1;
         var found = 5;
@@ -1504,7 +1532,7 @@ switch (result) {
         }
         document.selection.Replace("[ ]+", " ", nFlags);
         break;
-    case 141:
+    case 10504:
         //第123章 → 第一百二十三章
         alert("本功能只针对“第xx(集|册|部|卷|章|回|节)”这种格式的标题。");
         document.selection.Replace("(第)(1|１)(.)(集|册|部|卷|章|回|节)", "\\1十\\3\\4",
@@ -1603,7 +1631,7 @@ switch (result) {
         document.selection.Replace("十O", "十", nFlags);
         //document.selection.Replace("0","〇",nFlags);
         break;
-    case 142:
+    case 10503:
         //第一二三章 → 第一百二十三章
         alert("本功能只针对“第xx(集|册|部|卷|章|回|节)”这种格式的标题。");
         document.selection.Replace("(第)(一)(.)(集|册|部|卷|章|回|节)", "\\1十\\3\\4",
@@ -1691,38 +1719,14 @@ switch (result) {
             eeFindNext | eeFindReplaceEscSeq |
             eeReplaceAll | eeFindReplaceRegExp);
         break;
-    case 160:
+    case 10400:
         //VIP章节标题预处理使用
         alert(
             "使用指南：必须对不规范vip章节名进行预处理，再进行自动排版。最好对规范和不规范的混合标题分开进行处理。\nVIP章节标题直接复制起点目录中的文字，一行四个标题的格式。\n类似于：\n“第九章第十章十一章十二章”\n“九 十 十一 十二”\n预处理得到结果：\n“第九章 第十章 第十一章 第十二章”\n\n复杂标题预先分段:\n类似于“第九章 第十章 第十一章 第十二章”的标题，由一行四个标题处理为一行一个。\n\n“字段”是指类似于“卷六 织网 粮争帛斗 一一 ”的标题中被空格隔开的一段，即第二字段（织网）第三字段（粮争帛斗）。\n\n处理流程：\n1.先要对标题进行分段，把一行四个的标题，分成一行一个。\n2.给过于紧密的标题加上空格区分不同字段内容。\n3.给残缺量词的标题加上“第章”。\n4.把残缺的括号补齐。\n\n因为很多书的图片都是无法确定多少的，比如说有的章节只有1张，有的2张，有的3张，这是没办法找到规律进行处理的。不如就按照这些章节图片最多数量分，然后手工把多余的链接一个一个删，这总比一个一个加进去要简单。不要的部分就是<center>......</center>之间的。"
         );
         break;
-    case 161:
-        //VIP章节不规范标题预处理（复杂标题预先分段）
-        document.selection.Replace("《", " 《", nFlags);
-        document.selection.Replace("》", "》 ", nFlags);
-        document.selection.Replace("(第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节])",
-            "\\0 ", nFlags);
-        document.selection.Replace("　", " ", nFlags);
-        //改成半角空格
-        document.selection.Replace("(", " （", eeFindNext | eeReplaceAll);
-        document.selection.Replace(")", "） ", eeFindNext | eeReplaceAll);
-        //改成全角括号
-        document.selection.Replace(" +", " ", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("^\\n", "", nFlags);
-        var title1 = prompt("输入标题的第一个字词或空格分段（逐鹿卷 第2章），已分段则取消。",
-            "“逐鹿卷”或“第[0-9一二三四五六七八九十两百零〇]{1,5}卷”，（卷部集章节回），只有一个字段可用空格");
-        if (title1 != "") {
-            document.selection.Replace("\\n", "", nFlags);
-            document.selection.Replace("(" + title1 + ")", "\\n\\0", nFlags);
-            document.selection.Replace("^[ ]*\\n", "", nFlags);
-        }
-        document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
-        //删除段落首尾空格
-        document.selection.Replace("^[ 　]*\\n", "", nFlags);
-        break;
-    case 162:
+
+    case 10401:
         //VIP章节不规范标题预处理（加章节量词）
         document.selection.Replace("《", " 《", nFlags);
         document.selection.Replace("》", "》 ", nFlags);
@@ -1803,7 +1807,7 @@ switch (result) {
         document.selection.Replace("[ ]+", " ", nFlags);
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         break;
-    case 163:
+    case 10402:
         //VIP章节不规范标题预处理（标题内加空格）	
         document.selection.Replace("《", " 《", nFlags);
         document.selection.Replace("》", "》 ", nFlags);
@@ -1839,7 +1843,7 @@ switch (result) {
         document.selection.Replace("[ ]+", " ", nFlags);
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         break;
-    case 164:
+    case 10403:
         //VIP章节不规范标题预处理（括号配对）	
         document.selection.Replace("《", " 《", nFlags);
         document.selection.Replace("》", "》 ", nFlags);
@@ -1877,7 +1881,7 @@ switch (result) {
         document.selection.Replace(" ）", "） ", nFlags);
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         break;
-    case 165:
+    case 10404:
         //VIP章节不规范标题预处理（指定位置添加括号）	
         document.selection.Replace("《", " 《", nFlags);
         document.selection.Replace("》", "》 ", nFlags);
@@ -1925,7 +1929,7 @@ switch (result) {
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         //删除段首尾空格
         break;
-    case 166:
+    case 10405:
         //VIP章节不规范标题预处理（为指定关键词所在字段添加括号）	
         document.selection.Replace("《", " 《", nFlags);
         document.selection.Replace("》", "》 ", nFlags);
@@ -1960,602 +1964,14 @@ switch (result) {
         document.selection.Replace("(^[ 　]*)|([ 　]*$)", "", nFlags);
         //删除段首尾空格
         break;
-    case 170:
-        //VIP章节排版使用
-        alert(
-            "常规自动排版使用说明：用于标题格式比较规范整齐。\n\n1. 若标题类似于“第一桶 第一碗 蝉联倒数第一”，把标题的正则表达式“第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节]”中“[册集部卷章回节]”改为“[碗]”即可。\n\n2. “常规排版”将增加图片链接按顺序排列数字，“提取标题排版”则从标题中提取数字序号作为图片连接的序号，非常有助于减低最后给不按顺序排列的图片改名的麻烦。\n\n3. “卷部名”，是指vip章节所在第几卷第几部的名字，例如“逐鹿中原卷”，免去后续整理标题的麻烦。\n\n4. “卷的序号或文字前缀”，是加在vip图片链接的前面便于整理图片，处理结果例如“4-26.gif，逐鹿中原-26.gif，zlzy-26.gif”。\n\n“VIP章节提取标题序数排版”:\n是为了解决不规范不定长的章节标题与图片序号不一致的麻烦，避免要手工处理大量的图片名。使用前可以使用“第一二三章 → 第123章”功能，将中文数字改为阿拉伯数字。\n处理结果例如“第三章 粮争帛斗(十一)”修正为：\n“3-11.gif”或者“三-十一.gif”。\n\n “VIP图片一分为N”：\n必须先经过排版分配图片链接，可以避免拼接图片的庞大工作量，处理结果例如<center><img src=../txt/4-5a.gif></center><center><img src=../txt/4-5b.gif></center>。\n\n最后配合拖把更名器，对所有的图片进行批量更名，省时省力。"
-        )
-        break;
-    case 171:
-        //VIP章节增强顺序排版
-        document.selection.Replace("《", " 《", nFlags);
-        document.selection.Replace("》", "》 ", nFlags);
-        document.selection.Replace("　", " ", nFlags);
-        //改成半角空格
-        document.selection.Replace("(", " （", eeFindNext | eeReplaceAll);
-        document.selection.Replace(")", "） ", eeFindNext | eeReplaceAll);
-        //改成全角括号
-        document.selection.Replace("(第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节])",
-            " \\1 ", nFlags);
-        document.selection.Replace(" +", " ", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("^\\n", "", nFlags);
-        var title1 = prompt("输入标题的第一个字词或空格分段（逐鹿卷 第2章），已分段则取消。", "第");
-        if (title1 != "") {
-            document.selection.Replace("\\n", "", nFlags);
-            document.selection.Replace("(" + title1 + ")", "\\n\\0", nFlags);
-            document.selection.Replace("^[ ]*\\n", "", nFlags);
-        }
-        var insert = prompt("输入标题前要插入的卷部名（逐鹿卷 第20章），已有或不要则取消。", "VIP章节或逐鹿卷");
-        if (insert != "") {
-            document.selection.Replace("^.+", "" + insert + " \\0", nFlags);
-        }
-        var num1 = prompt("（默认）输入图片链接要插入的文字或数字前缀（逐鹿卷-12-2.gif），不要则取消。", "vip")
-        var num = prompt("（默认）输入图片链接起始章节序号数字，排版必需不要取消。", "1");
-        if (num != "") {
-            document.selection.StartOfDocument(false);
-            var found = document.selection.Replace("^.+",
-                "\\0 <font color=lime>图</font>\\n<center><img src=../txt/" +
-                num1 + "_" + num + ".gif></center>\\n\\n",
-                eeFindReplaceRegExp);
-            while (found) {
-                num++;
-                found = document.selection.Replace("^.+",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/" +
-                    num1 + "_" + num + ".gif></center>\\n\\n",
-                    eeFindReplaceRegExp);
-            }
-        } else {
-            document.selection.StartOfDocument(false);
-            var found = document.selection.Replace("^.+",
-                "\\0 <font color=lime>图</font>\\n<center><img src=../txt/" +
-                num + ".gif></center>\\n\\n",
-                eeFindReplaceRegExp);
-            while (found) {
-                num++;
-                found = document.selection.Replace("^.+",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/" +
-                    num + ".gif></center>\\n\\n",
-                    eeFindReplaceRegExp);
-            }
-        }
-        //下面清理空格多余符号
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \-", "-", nFlags);
-        document.selection.Replace("\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\/ ", "/", nFlags);
-        document.selection.Replace("\/\-", ".", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\-\-", "-", nFlags);
-        document.selection.Replace("\-\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        break;
-    case 172:
-        //VIP章节提取标题数字高级排版
-        bAnswer = confirm(
-            "VIP标题中已经含有“第章”量词按“确定”；不含则按“取消”，先进行预处理加“第章”量词，或用全自动提取排版。");
-        if (bAnswer == true) {
-            document.selection.Replace("《", " 《", nFlags);
-            document.selection.Replace("》", "》 ", nFlags);
-            document.selection.Replace("　", " ", nFlags);
-            //改成半角空格
-            document.selection.Replace("(", " （", eeFindNext | eeReplaceAll);
-            document.selection.Replace(")", "） ", eeFindNext | eeReplaceAll);
-            //改成全角括号
-            document.selection.Replace("(第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节])",
-                " \\1 ", nFlags);
-            document.selection.Replace("[ ]+", " ", nFlags);
-            document.selection.Replace(" *$", "", nFlags);
-            document.selection.Replace("^\\n", "", nFlags);
-        } else {
-            break;
-        }
-        var title9 = prompt("输入标题第一个字词分段（中括号可包含不同的几个字），已分段取消。",
-            "“[不同的字]”或“第[0-9一二三四五六七八九十两百零〇]{1,5}[卷]”（册集部卷章回节），只有一个字段可用空格");
-        if (title9 != "") {
-            document.selection.Replace("\\n", "", nFlags);
-            document.selection.Replace("(" + title9 + ")", "\\n\\0", nFlags);
-            document.selection.Replace("^[ ]*\\n", "", nFlags);
-        }
-        var insert = prompt("输入标题前要插入的卷部名，已有或不要则取消。", "VIP章节或xx卷");
-        if (insert != "") {
-            document.selection.Replace("^.+", "" + insert + " \\0", nFlags);
-        }
-        var title = prompt("（默认）输入章节序数所用的量词，只需输入“册集部卷章回节”中的一个字即可。", "[章回节]");
-        if (title != "") {
-            var insert1 = prompt("输入图片链接中要插入的文字或数字前缀，不要则取消。", "vip或xx部xx卷");
-            if (insert1 != "") {
-                document.selection.Replace("(.*)第([0-9一二三四五六七八九十两百零〇]{1,5})(" +
-                    title + ")(.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/" +
-                    insert1 +
-                    "_\\2.gif></center>\\n\\n",
-                    nFlags);
-            }
-            //单独提取章节序号
-            else {
-                document.selection.Replace("(.*)第([0-9一二三四五六七八九十两百零〇]{1,5})(" +
-                    title + ")(.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\2.gif></center>\\n\\n",
-                    nFlags);
-            }
-        } else {
-            break;
-        }
-        //下面单独提取括号到文后第二十五章 风花雪月 （中）
-        bAnswer = confirm(
-            "1.按确定，处理“在”括号内的第二序数，例如“第二章 （11）（上）”；没有在括号内的第二序数则“取消”。");
-        if (bAnswer == true) {
-            document.selection.Replace("^(.+\\（)(.*)(\\）.+)\\n(.+)(\\.gif)",
-                "\\1\\2\\3\\n\\4-\\2\\5", nFlags);
-        }
-        var title1 = prompt("2.确定处理“不在”括号内的第二序数“第二章 11 上”，没有则取消。",
-            "输入2与6之间的数字，指明第二序数位于空格隔开的第几个字段。");
-        if (title1 == 2) {
-            document.selection.Replace("^([^ ]*) ([^ ]*)(.*)\\n(.+)(\\.gif)",
-                "\\1 \\2\\3\\n\\4-\\2\\5", nFlags);
-        }
-        if (title1 == 3) {
-            document.selection.Replace(
-                "^([^ ]*) ([^ ]*) ([^ ]*)(.*)\\n(.+)(\\.gif)",
-                "\\1 \\2 \\3\\4\\n\\5-\\3\\6",
-                nFlags);
-        }
-        if (title1 == 4) {
-            document.selection.Replace(
-                "^([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)(.*)\\n(.+)(\\.gif)",
-                "\\1 \\2 \\3 \\4\\5\\n\\6-\\4\\7",
-                nFlags);
-        }
-        if (title1 == 5) {
-            document.selection.Replace(
-                "^([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)(.*)\\n(.+)(\\.gif)",
-                "\\1 \\2 \\3 \\4 \\5\\6\\n\\7-\\5\\8",
-                nFlags);
-        }
-        if (title1 == 6) {
-            document.selection.Replace(
-                "^([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*) ([^ ]*)(.*)\\n(.+)(\\.gif)",
-                "\\1 \\2 \\3 \\4 \\5 \\6\\7\\n\\8-\\6\\9", nFlags);
-        }
-        //下面清理空格多余符号
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \-", "-", nFlags);
-        document.selection.Replace("\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\/ ", "/", nFlags);
-        document.selection.Replace("\/\-", ".", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\-\-", "-", nFlags);
-        document.selection.Replace("\-\\.", ".", nFlags);
-        document.selection.Replace("\-\_", "_", nFlags);
-        document.selection.Replace("\_\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        alert("如有需要请另行使用“vip图片链接一二三改123”功能。");
-        break;
-    case 173:
-        //VIP章节提取标题自动排版
-        document.selection.Replace("《", " 《", nFlags);
-        document.selection.Replace("》", "》 ", nFlags);
-        document.selection.Replace("　", " ", nFlags);
-        //改成半角空格
-        document.selection.Replace("(", " （", eeFindNext | eeReplaceAll);
-        document.selection.Replace(")", "） ", eeFindNext | eeReplaceAll);
-        //改成全角括号
-        document.selection.Replace("(第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节])",
-            " \\1 ", nFlags);
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("^\\n", "", nFlags);
-        document.selection.Replace("^ ([^ ]+)", "\\1", nFlags);
-        var title1 = prompt("输入标题的第一个字词或空格分段（逐鹿卷 第2章），已分段则取消。",
-            "“逐鹿卷”或“第[0-9一二三四五六七八九十两百零〇]{1,5}卷”，（卷部集章节回），只有一个字段可用空格");
-        if (title1 != "") {
-            document.selection.Replace("\\n", "", nFlags);
-            document.selection.Replace("(" + title1 + ")", "\\n\\0", nFlags);
-            document.selection.Replace("^[ ]*\\n", "", nFlags);
-        }
-        var title2 = prompt("确定则按照“第xx章”自动排序，取消则手动按标题中序数的所在位置排版。",
-            "第[0-9一二三四五六七八九十两百零〇]{1,5}[章节回]");
-        if (title2 != "") {
-            document.selection.Replace("(.*)(" + title2 + ")(.*)",
-                "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\2.gif></center>\\n\\n",
-                nFlags);
-        } else {
-            var title = prompt("标题中序数的位置，位于以空格隔开的第几个字段，至少有两个。", "在此输入不大于5的数字");
-            if (title == 1) {
-                document.selection.Replace("([^ ]+) (.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\1.gif></center>\\n\\n",
-                    nFlags);
-            }
-            if (title == 2) {
-                document.selection.Replace("([^ ]+) ([^ ]+) (.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\2.gif></center>\\n\\n",
-                    nFlags);
-            }
-            if (title == 3) {
-                document.selection.Replace("([^ ]+) ([^ ]+) ([^ ]+) (.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\3.gif></center>\\n\\n",
-                    nFlags);
-            }
-            if (title == 4) {
-                document.selection.Replace(
-                    "([^ ]+) ([^ ]+) ([^ ]+) ([^ ]+) (.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\4.gif></center>\\n\\n",
-                    nFlags);
-            }
-            if (title == 5) {
-                document.selection.Replace(
-                    "([^ ]+) ([^ ]+) ([^ ]+) ([^ ]+) ([^ ]+) (.*)",
-                    "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\5.gif></center>\\n\\n",
-                    nFlags);
-            }
-        }
-        var title3 = prompt("要去掉图片链接中的“第章”量词，要保持则按取消。",
-            "第([0-9一二三四五六七八九十两百零〇]{1,5})[章回节]");
-        if (title3 != "") {
-            document.selection.Replace("(txt.*)" + title3 + "", "\\1\\2",
-                nFlags);
-        }
-        //下面清理空格多余符号
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \\-", "-", nFlags);
-        document.selection.Replace("\\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\\/ ", "/", nFlags);
-        document.selection.Replace("\\/\\-", "/", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\\-\\-", "-", nFlags);
-        document.selection.Replace("\\-\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        alert("如有需要请另行使用“vip图片链接一二三改123”功能。");
-        break;
-    case 174:
-        //使用全部VIP标题排版
-        document.selection.Replace("《", " 《", nFlags);
-        document.selection.Replace("》", "》 ", nFlags);
-        document.selection.Replace("　", " ", nFlags);
-        //改成半角空格
-        document.selection.Replace("(", " （", eeFindNext | eeReplaceAll);
-        document.selection.Replace(")", "） ", eeFindNext | eeReplaceAll);
-        //改成全角括号
-        document.selection.Replace("(第[0-9一二三四五六七八九十两百千零〇]{1,7}[册集部卷章回节])",
-            " \\1 ", nFlags);
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("^\\n", "", nFlags);
-        document.selection.Replace("^ ([^ ]+)", "\\1", nFlags);
-        var title1 = prompt("输入标题的第一个字词或空格分段（逐鹿卷 第2章），已分段则取消。",
-            "“逐鹿卷”或“第[0-9一二三四五六七八九十两百零〇]{1,5}卷”，（卷部集章节回），只有一个字段可用空格");
-        if (title1 != "") {
-            document.selection.Replace("\\n", "", nFlags);
-            document.selection.Replace("(" + title1 + ")", "\\n\\0", nFlags);
-            document.selection.Replace("^[ ]*\\n", "", nFlags);
-        }
-        document.selection.Replace(".+",
-            "\\0 <font color=lime>图</font>\\n<center><img src=../txt/\\0.gif></center>\\n\\n",
-            nFlags);
-        bAnswer = confirm(
-            "按“确定”将图片链接中的空格转为横杠，例如“txt/逐鹿卷 第2章.gif”转换成“txt/逐鹿卷-第2章.gif”；按“取消”保持。"
-        );
-        if (bAnswer == true) {
-            document.selection.Replace("(txt[^ ]+) (.+gif)", "\\1-\\2", nFlags);
-            document.selection.Replace("(txt[^ ]+) (.+gif)", "\\1-\\2", nFlags);
-            document.selection.Replace("(txt[^ ]+) (.+gif)", "\\1-\\2", nFlags);
-            document.selection.Replace("(txt[^ ]+) (.+gif)", "\\1-\\2", nFlags);
-            document.selection.Replace("(txt[^ ]+) (.+gif)", "\\1-\\2", nFlags);
-        }
-        //下面清理空格多余符号
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \\-", "-", nFlags);
-        document.selection.Replace("\\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\\/ ", "/", nFlags);
-        document.selection.Replace("\\/\\-", "/", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\\-\\-", "-", nFlags);
-        document.selection.Replace("\\-\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        alert("如有需要请另行使用“vip图片链接一二三改123”功能。");
-        break;
-    case 177:
-        //VIP图片链接一分为N
-        var insert = prompt("已排版分配好的VIP图片链接一分为N，11a.gif，11b.gif",
-            "在此输入要拆分为几段的数字1到7");
-        if (insert == 1) {
-            document.selection.Replace("^(.+)\.gif(.+)", "\\1_0.gif\\2", nFlags);
-        }
-        if (insert == 2) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1_0.gif\\2\\1_1.gif\\2", nFlags);
-        }
-        if (insert == 3) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1_0.gif\\2\\1_1.gif\\2\\1_2.gif\\2", nFlags);
-        }
-        if (insert == 4) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1_0.gif\\2\\1_1.gif\\2\\1_2.gif\\2\\1_3.gif\\2",
-                nFlags);
-        }
-        if (insert == 5) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1a.gif\\2\\1b.gif\\2\\1c.gif\\2\\1d.gif\\2\\1e.gif\\2",
-                nFlags);
-        }
-        if (insert == 6) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1a.gif\\2\\1b.gif\\2\\1c.gif\\2\\1d.gif\\2\\1e.gif\\2\\1f.gif\\2",
-                nFlags);
-        }
-        if (insert == 7) {
-            document.selection.Replace("^(.+)\.gif(.+)",
-                "\\1_0.gif\\2\\1_1.gif\\2\\1_2.gif\\2\\1_3.gif\\2\\1_4.gif\\2\\1_5.gif\\2\\1_6.gif\\2",
-                nFlags);
-        } else {
-            break;
-        }
-        break;
-    case 175:
-        //删除vip标题段尾跟序数无关的文字<center><img src=../txt/vip-三三五-喜忧参半.gif></center>
-        bAnswer = confirm(
-            "删除（gif）往前数倒数第几段按“确定”，例如“vip-三三五-喜忧参半.gif”；删除（txt）后第一段按“取消”。");
-        if (bAnswer == true) {
-            var insert = prompt("要删除（gif）前以“-”或“空格”分割的倒数第几段数字。", "在此输入1-5之间的数字");
-            if (insert == 1) {
-                document.selection.Replace("(txt)(.*)[\\- ][^\\- ]*(\\.gif)",
-                    "\\1\\2\\3", nFlags);
-            }
-            if (insert == 2) {
-                document.selection.Replace(
-                    "(txt)(.*)([\\- ])[^\\- ]*[\\- ]([^\\- ]*)(\\.gif)",
-                    "\\1\\2\\3\\4\\5",
-                    nFlags);
-            }
-            if (insert == 3) {
-                document.selection.Replace(
-                    "(txt)(.*)([\\- ])[^\\- ]*[\\- ]([^\\- ]*)([\\- ])([^\\- ]*)(\\.gif)",
-                    "\\1\\2\\3\\4\\5\\6\\7", nFlags);
-            }
-            if (insert == 4) {
-                document.selection.Replace(
-                    "(txt)(.*)([\\- ])[^\\- ]*[\\- ]([^\\- ]*)([\\- ])([^\\- ]*)([\\- ])([^\\- ]*)(\\.gif)",
-                    "\\1\\2\\3\\4\\5\\6\\7\\8\\9", nFlags);
-            }
-            if (insert == 5) {
-                document.selection.Replace(
-                    "(txt)(.*)([\\- ])[^\\- ]*[\\- ]([^\\- ]*)([\\- ])([^\\- ]*)([\\- ])([^\\- ]*)[\\- ]([^\\- ]*)\\.gif",
-                    "\\1\\2\\3\\4\\5\\6\\7\\8-\\9.gif", nFlags);
-            }
-        } else {
-            document.selection.Replace("(txt\\/)[^\\- ]+([\\- ].+)", "\\1\\2",
-                nFlags);
-        }
-        //下面清理空格多余符号
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \\-", "-", nFlags);
-        document.selection.Replace("\\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\\/ ", "/", nFlags);
-        document.selection.Replace("\\/\\-", "/", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\\-\\-", "-", nFlags);
-        document.selection.Replace("\\-\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        alert("如有需要请另行使用“vip图片链接一二三改123”功能。");
-        break;
-    case 176:
-        //VIP图片链接中文序数转为阿拉伯数字(第一二章上中下\\txt\\12.gif)
-        document.selection.Replace("(txt.*)第([0-9一二三四五六七八九十两百零〇]{1,5}.+gif)",
-            "\\1\\2", eeFindNext |
-            eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        document.selection.Replace("(txt.*)[册集部卷章回节](.*gif)", "\\1\\2",
-            eeFindNext | eeFindReplaceEscSeq | eeReplaceAll |
-            eeFindReplaceRegExp);
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[^一二三四五六七八九两]+)百([一二三四五六七八九十零〇]+)", "\\11\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //百一十
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[一二三四五六七八九两]+)百([一二三四五六七八九十零〇]+)", "\\1\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //一百一十
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[一二三四五六七八九两]+)百([^一二三四五六七八九十零〇]*)", "\\100\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //一百
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[一二三四五六七八九]+)十([一二三四五六七八九〇]+)", "\\1\\2", eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //三十三
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[^一二三四五六七八九]*)十([一二三四五六七八九〇]+)", "\\11\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //十三
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[一二三四五六七八九]+)十([^一二三四五六七八九〇]*)", "\\10\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //三十
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace(
-                "(txt.*[^一二三四五六七八九]*)十([^一二三四五六七八九〇]*)", "\\110\\2",
-                eeFindNext |
-                eeFindReplaceEscSeq | eeReplaceAll | eeFindReplaceRegExp);
-        }
-        //十
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace("(txt.*)两(.*)", "\\12\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var num = 1;
-        var found = 5;
-        while (found) {
-            num++;
-            found = document.selection.Replace("(txt.*)零(.*)", "\\10\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found1 = 5;
-        while (found1) {
-            num++;
-            found1 = document.selection.Replace("(txt.*)〇(.*)", "\\10\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found2 = 5;
-        while (found2) {
-            num++;
-            found2 = document.selection.Replace("(txt.*)一(.*)", "\\11\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found3 = 5;
-        while (found3) {
-            num++;
-            found3 = document.selection.Replace("(txt.*)二(.*)", "\\12\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found4 = 5;
-        while (found4) {
-            num++;
-            found4 = document.selection.Replace("(txt.*)三(.*)", "\\13\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found5 = 5;
-        while (found5) {
-            num++;
-            found5 = document.selection.Replace("(txt.*)四(.*)", "\\14\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found6 = 5;
-        while (found6) {
-            num++;
-            found6 = document.selection.Replace("(txt.*)五(.*)", "\\15\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found7 = 5;
-        while (found7) {
-            num++;
-            found7 = document.selection.Replace("(txt.*)六(.*)", "\\16\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found8 = 5;
-        while (found8) {
-            num++;
-            found8 = document.selection.Replace("(txt.*)七(.*)", "\\17\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found9 = 5;
-        while (found9) {
-            num++;
-            found9 = document.selection.Replace("(txt.*)八(.*)", "\\18\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        var found10 = 5;
-        while (found10) {
-            num++;
-            found10 = document.selection.Replace("(txt.*)九(.*)", "\\19\\2",
-                eeFindNext | eeFindReplaceEscSeq |
-                eeReplaceAll | eeFindReplaceRegExp);
-        }
-        bAnswer = confirm("要改图片链接中“上中下”为数字按确定，没有“上中下”则按取消。");
-        if (bAnswer == true) {
-            bAnswer = confirm(
-                "图片链接中只有“上下”按“确定”，改为“_1_2”；\n图片链接中有“上中下”则按“取消”，改为“_1_2_3”。"
-            );
-            if (bAnswer == true) {
-                document.selection.Replace("(txt)(.+)上(.+)(gif)",
-                    "\\1\\2_1\\3\\4", nFlags);
-                document.selection.Replace("(txt)(.+)下(.+)(gif)",
-                    "\\1\\2_2\\3\\4", nFlags);
-            } else {
-                document.selection.Replace("(txt)(.+)上(.+)(gif)",
-                    "\\1\\2_1\\3\\4", nFlags);
-                document.selection.Replace("(txt)(.+)中(.+)(gif)",
-                    "\\1\\2_2\\3\\4", nFlags);
-                document.selection.Replace("(txt)(.+)下(.+)(gif)",
-                    "\\1\\2_3\\3\\4", nFlags);
-            }
-        }
-        //下面清理空格多余符号	
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \-", "-", nFlags);
-        document.selection.Replace("\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\/ ", "/", nFlags);
-        document.selection.Replace("\/\-", ".", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\-\-", "-", nFlags);
-        document.selection.Replace("\-\\.", ".", nFlags);
-        document.selection.Replace("\-\_", "_", nFlags);
-        document.selection.Replace("\_\\.", ".", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("[ ]+", " ", nFlags);
-        document.selection.Replace(" \\-", "-", nFlags);
-        document.selection.Replace("\\- ", "-", nFlags);
-        document.selection.Replace(" *$", "", nFlags);
-        document.selection.Replace("\\/ ", "/", nFlags);
-        document.selection.Replace("\\/\\-", "/", nFlags);
-        document.selection.Replace(" \\.", ".", nFlags);
-        document.selection.Replace("\\-\\-", "-", nFlags);
-        break;
-    case 180:
+
+    case 702:
         // 内容修正
         alert(
             "1.删除自定义关键词（广告句子）使用指南：\n\n必须仔细选用关键词，否则容易导致错误删除其他巧合的地方。\n尽量多选择几个关键词，关键词之间用（.*）分开，如果关键词之间没有空格最好用（[^ ]*）区分，这样效果最好。\n比如（推荐.+书号），（推荐.+书号.+作者）。\n\n对于ASCII乱码，复制一到两个多次出现的乱码作为关键词，因为可能有遗漏，应该反复多次运行直到完全清除。\n\n2.删除含无用内容的多个段落，特别适合于html另存为txt的内容中的没用的各种内容，包括抬头段，版权段，评论，等等各种各样的没有用处的东西。相当于排版脚本的手动版。对于不提供全文阅读和下载的网站小说比较适用。\n删除广告乱码以后，最好对全文做一次段落重整，统一段落。"
         )
         break;
-    case 181:
+    case 704:
         // 删除自定义关键词（广告句子）
         var insert = prompt("输入此段特有的关键词，或用（.+）分开的多个关键词。",
             "关键词1.+关键词2，可只输入一个关键词");
@@ -2567,7 +1983,7 @@ switch (result) {
             document.selection.Replace("(.+)\\n\\n(.+)", "\\1\\n\\2", nFlags);
         }
         break;
-    case 182:
+    case 705:
         //删除自定义关键词（广告段落）
         var insert = prompt("输入此段特有的关键词，或用（.+）分开的多个关键词。",
             "关键词1.+关键词2，可只输入一个关键词");
@@ -2580,7 +1996,7 @@ switch (result) {
             break;
         }
         break;
-    case 183:
+    case 706:
         //删除自定义关键词（多个广告段落）
         var insert = prompt("输入要删除的第一段开头特有的关键词，或用（.+）分开的多个关键词。",
             "关键词1.+关键词2，可只输入一个关键词")
@@ -2602,11 +2018,8 @@ switch (result) {
             document.selection.Replace("^\\n\\n\\n", "\\n\\n", nFlags);
         }
         break;
-    case 184:
-        //修正导致hp脚本出错的文中路径（例c:\\windows\\）
-        document.selection.Replace("\\", "\\\\", eeFindNext | eeReplaceAll);
-        break;
-    case 185:
+
+    case 1000:
         //文中英文小写
         document.selection.Replace("A", "a", eeFindNext | eeReplaceAll);
         document.selection.Replace("B", "b", eeFindNext | eeReplaceAll);
@@ -2635,7 +2048,7 @@ switch (result) {
         document.selection.Replace("Y", "y", eeFindNext | eeReplaceAll);
         document.selection.Replace("Z", "z", eeFindNext | eeReplaceAll);
         break;
-    case 186:
+    case 703:
         //删除不规则乱码（数字字母符号）
         bAnswer = confirm(
             "1.本功能将清除2位以上的乱码，可能导致有残余乱码。\n\n2.可能会导致内文中使用的数字、英文、网址也被删除，请慎用，并仔细检查。"
@@ -2685,7 +2098,7 @@ switch (result) {
             document.selection.Replace("[\\x80-\\xFF]{2,60}", "", nFlags);
         }
         break;
-    case 188:
+    case 1111:
         //删除html代码（干扰乱码<FONT关键词</FONT>）
         document.selection.Replace("&nbsp;", " ", nFlags);
         bAnswer = confirm("是否删除这种形式：“<FONT COLOR=“#FFFFFF”>不可见干扰乱码</FONT>。");
@@ -2696,7 +2109,7 @@ switch (result) {
         document.selection.Replace(" *$", "", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 189:
+    case 1110:
         //删除html代码（干扰乱码<SPAN关键词</SPAN>）
         document.selection.Replace("&nbsp;", " ", nFlags);
         bAnswer = confirm(
@@ -2734,13 +2147,13 @@ switch (result) {
         document.selection.Replace(" *$", "", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 190:
+    case 1100:
         //HTML内容修正
         alert(
             "HTML内容修正使用说明：替换或删除	<SCRIPT src=[^>]*关键词</SCRIPT>。\n\n1.对一行的内容操作。\n不需要的话直接取消。\n2.关键词一定要准确，并且尽可能多用几个，以免删除了其它不相关的内容，最好事先要备份，并且使用撤销功能发现错误。"
         )
         break;
-    case 191:
+    case 1101:
         //删除html代码（<DIV关键词</DIV>）
         document.selection.Replace("^[ ]*<", "<", nFlags);
         var insert = prompt("1.删除代码行：<DIV...>关键词</DIV>", "关键词，不能只输入一点");
@@ -2777,7 +2190,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 192:
+    case 1102:
         //题头<META content=关键词>
         document.selection.Replace("^[ ]*<", "<", nFlags);
         var insert = prompt("删除代码：<META content=关键词>", "关键词，可只输一点“.”删除所有同类型");
@@ -2788,7 +2201,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 193:
+    case 1109:
         //删除html代码（广告脚本SCRIPT）
         document.selection.Replace("^[ ]*<", "<", nFlags);
         var insert = prompt("1.删除代码行：<SCRIPT src= 广告</SCRIPT>。",
@@ -2815,7 +2228,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 194:
+    case 1103:
         //删除html代码（文本链接<A href=关键词</A>）
         var insert = prompt("删除代码：<A href=关键词</A>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2826,7 +2239,7 @@ switch (result) {
         document.selection.Replace(" *$", "", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 195:
+    case 1104:
         //删除html代码（图片链接<IMG关键词>）
         var insert = prompt("删除代码行：<IMG关键词></IMG>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2836,7 +2249,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 196:
+    case 1105:
         //删除html代码（整行<TD>关键词</TD>）
         var insert = prompt("1.删除代码行：<TD>关键词</TD>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2872,7 +2285,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 197:
+    case 1106:
         //删除html代码（整段<TR>关键词</TR>）
         var insert = prompt("1.删除代码行：<TR>关键词</TR>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2908,7 +2321,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 198:
+    case 1107:
         //删除html代码（表格<TABLE关键词</TABLE>）
         var insert = prompt("1.删除代码行：<TABLE>关键词</TABLE>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2944,7 +2357,7 @@ switch (result) {
         document.selection.Replace(" *$", " ", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 199:
+    case 1108:
         //删除html代码（<IFRAME关键词</IFRAME>）
         var insert = prompt("删除代码：<IFRAME关键词></IFRAME>", "关键词，或只输一点“.”删除所有同类型");
         if (insert != "") {
@@ -2954,7 +2367,7 @@ switch (result) {
         document.selection.Replace(" *$", "", nFlags);
         document.selection.Replace("^\\n", "", nFlags);
         break;
-    case 1001:
+    case 10813:
         document.selection.Replace("\\n\\n", "<ENTER>", nFlags);
         document.selection.Replace("\\n", "", nFlags);
         document.selection.Replace("<ENTER>", "\\n", nFlags);
